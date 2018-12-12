@@ -32,4 +32,5 @@ export  class Recipe extends BaseEntity {
     })
     @JoinTable()  
     ingredients: Ingredient[];
+   // quantity : number 
 }
