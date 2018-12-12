@@ -5,6 +5,7 @@ import setupDb from './db'
 // import { verify } from './jwt'
 // import User from './users/entity'
 // import LoginController from './logins/controller';
+import RecipeController from './recipe/controller';
 
 const port = process.env.PORT || 4000
 
@@ -13,6 +14,7 @@ const app = createKoaServer({
   controllers: [
     // UserController,
     // LoginController,
+    RecipeController
   ],
   /*
   authorizationChecker: (action: Action) => {
