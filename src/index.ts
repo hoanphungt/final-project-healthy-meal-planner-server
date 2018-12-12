@@ -1,20 +1,22 @@
 import 'reflect-metadata'
-import { /*Action, BadRequestError,*/ createKoaServer } from "routing-controllers"
+import { Action, BadRequestError, createKoaServer } from "routing-controllers"
 import setupDb from './db'
-// import UserController from './users/controller';
-// import { verify } from './jwt'
-// import User from './users/entity'
-// import LoginController from './logins/controller';
+import UserController from './users/controller';
+import { verify } from './jwt'
+import User from './users/entity'
+import LoginController from './logins/controller';
+import PlannerController from './planners/controller';
 
 const port = process.env.PORT || 4000
 
 const app = createKoaServer({
   cors: true,
   controllers: [
-    // UserController,
-    // LoginController,
+    UserController,
+    LoginController,
+    PlannerController,
   ],
-  /*
+
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization
     if (header && header.startsWith('Bearer ')) {
@@ -44,7 +46,7 @@ const app = createKoaServer({
     return undefined
   },
 
-  */
+  
 })
 
 setupDb()
