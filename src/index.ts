@@ -10,6 +10,7 @@ import RecipeController from './recipes/controller';
 import RecipeIngredientController from './recipeIngredients/controller';
 import DayController from './days/controller';
 import UnitController from './units/controller';
+import IngredientController from './ingredients/controller';
 
 const port = process.env.PORT || 4000
 
@@ -22,7 +23,8 @@ const app = createKoaServer({
     RecipeController,
     RecipeIngredientController,
     DayController,
-    UnitController
+    UnitController,
+    IngredientController
   ],
 
   authorizationChecker: (action: Action) => {
