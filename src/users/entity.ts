@@ -46,7 +46,7 @@ export default class User extends BaseEntity {
 
   // @IsNumber()
   @Column('integer')
-  childrensNumber: number
+  childrenNumber: number
 
   @OneToOne(() => Planner, { eager: true })
   @JoinColumn()

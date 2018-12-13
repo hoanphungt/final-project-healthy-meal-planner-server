@@ -12,7 +12,7 @@ export default class Planner extends BaseEntity {
   @Column('text')
   name: string
 
-  @OneToMany(() => Day, day => day.planner, {eager:true}) 
+  @OneToMany(() => Day, day => day.planner) 
   days: Day[]
 
 

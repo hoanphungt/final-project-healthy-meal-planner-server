@@ -11,7 +11,7 @@ export default class Day extends BaseEntity {
   id?: number
 
   @Column('date', {nullable: true})
-  plannerDay: Date
+  day: Date
 
   @ManyToOne(() => Recipe, recipe => recipe.days)
   recipe: Recipe;
