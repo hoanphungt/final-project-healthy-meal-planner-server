@@ -1,6 +1,6 @@
-import { JsonController, Post, Body, BadRequestError, /*Authorized*/ Get, Param, HttpCode } from 'routing-controllers'
+import { JsonController,/* Post, Body, BadRequestError, HttpCode, Authorized*/ Get, Param } from 'routing-controllers'
 import Planner from './entity';
-import User from '../users/entity';
+//import User from '../users/entity';
 
 
 @JsonController()
@@ -19,21 +19,23 @@ export default class PlannerController {
   getAllPlanners() {
     return Planner.find()
   }
-
-  @Post('/users/:userId([0-9]+)/planners')
-  @HttpCode(201)
-  async createPlanner(
-    @Body() planner: Planner,
-    @Param('userId') userId: number,
-  ) {
-    const user = await User.findOne(userId)
-    if(!user) throw new BadRequestError(`User does not exist`)
-
-    user.planner = planner
-    // planner = new Planner
-    await planner.save()
-    await user.save()
-    return {planner, user}
-  }
 }
+
+
+
+  // @Post('/users/:userId([0-9]+)/planners')
+  // @HttpCode(201)
+  // async createPlanner(
+  //   @Body() planner: Planner,
+  //   @Param('userId') userId: number,
+  // ) {
+  //   const user = await User.findOne(userId)
+  //   if(!user) throw new BadRequestError(`User does not exist`)
+
+  //   user.planner = planner
+  //   // planner = new Planner
+  //   await planner.save()
+  //   await user.save()
+  //   return {planner, user}
+  // }
 

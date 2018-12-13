@@ -1,21 +1,21 @@
 import { JsonController,/* Post, Body, BadRequestError, Authorized*/ Get, Param } from 'routing-controllers'
-import Unit from './entity';
+import Day from './entity';
 
 
 @JsonController()
-export default class UnitController {
+export default class DayController {
 
   
-  @Get('/units/:id([0-9]+)')
+  @Get('/days/:id([0-9]+)')
   getUser(
     @Param('id') id: number
   ) {
-    return Unit.findOne(id)
+    return Day.findOne(id)
   }
 
 
-  @Get('/units')
-  getAllUnits() {
-    return Unit.find()
+  @Get('/days')
+  getAllDays() {
+    return Day.find()
   }
 }

@@ -1,10 +1,25 @@
 import { JsonController, Post, Body, BodyParam, BadRequestError, /*Authorized*/ Get, Param } from 'routing-controllers'
 import User from './entity';
+import Planner from '../planners/entity';
 
 
 @JsonController()
 export default class UserController {
 
+  // @Post('/users')
+  // async signup(
+  //   @Body() newUserData: User,
+  //   @BodyParam("confirmPassword") password_confirmation: string
+  // ) {
+  //   const { password, ...rest } = newUserData
+  //   if (password !== password_confirmation) throw new BadRequestError('Passwords do not match')
+  //   const entity = User.create(rest)
+  //   await entity.setPassword(password)
+
+  //   const user = await entity.save()
+
+  //   return user
+  // }
   @Post('/users')
   async signup(
     @Body() newUserData: User,
@@ -17,8 +32,22 @@ export default class UserController {
 
     const user = await entity.save()
 
-    return user
+    const planner = new Planner
+      user.planner = planner
+      await planner.save()
+      await user.save()
+      return {planner, user} 
   }
+
+
+
+
+
+
+
+
+
+
 
   //   for admin implementation:
   // @Authorized()

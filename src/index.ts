@@ -6,6 +6,10 @@ import { verify } from './jwt'
 import User from './users/entity'
 import LoginController from './logins/controller';
 import PlannerController from './planners/controller';
+import RecipeController from './recipes/controller';
+import RecipeIngredientController from './recipeIngredients/controller';
+import DayController from './days/controller';
+import UnitController from './units/controller';
 
 const port = process.env.PORT || 4000
 
@@ -15,6 +19,10 @@ const app = createKoaServer({
     UserController,
     LoginController,
     PlannerController,
+    RecipeController,
+    RecipeIngredientController,
+    DayController,
+    UnitController
   ],
 
   authorizationChecker: (action: Action) => {

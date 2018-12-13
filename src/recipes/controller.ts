@@ -1,5 +1,5 @@
-import { JsonController, /*Post, Body, BodyParam, BadRequestError, Authorized*/ Get, Param } from 'routing-controllers'
-import Planner from './entity';
+import { JsonController, Post, Body, /* BodyParam, BadRequestError, Authorized*/ Get, Param, HttpCode } from 'routing-controllers'
+import Recipe from './entity';
 // import Recipe from '../recipes/entity';
 
 
@@ -11,29 +11,58 @@ export default class RecipeController {
   getRecipe(
     @Param('id') id: number
   ) {
-    return Planner.findOne(id)
+    return Recipe.findOne(id)
   }
 
 
   @Get('/recipes')
   getAllRecipes() {
-    return Planner.find()
+    return Recipe.find()
   }
 
-  // @Post('/planners/:plannerId([0-9]+)/recipes')
-  // @HttpCode(201)
-  // async createPlanner(
-  //   @Body() recipe: Recipe,
-  //   @Param('plannerId') plannerId: number,
-  // ) {
-  //   const planner = await Planner.findOne(plannerId)
-  //   if(!planner) throw new BadRequestError(`planner does not exist`)
 
-  //   planner.recipe = planner
-  //   // planner = new Planner
-  //   await planner.save()
-  //   await planner.save()
-  //   return {planner, planner}
-  // }
+  @Post('/recipes')
+  @HttpCode(201)
+  async createRecipe(
+    @Body() recipe: Recipe,
+  ) {
+
+    await recipe.save()
+    return recipe
+  }
 }
 
+
+
+  // @Post('/Recipes/:RecipeId([0-9]+)/recipes')
+  // @HttpCode(201)
+  // async createRecipe(
+  //   @Body() recipe: Recipe,
+  //   @Param('RecipeId') RecipeId: number,
+  // ) {
+  //   const Recipe = await Recipe.findOne(RecipeId)
+  //   if(!Recipe) throw new BadRequestError(`Recipe does not exist`)
+
+  //   Recipe.recipe = Recipe
+  //   // Recipe = new Recipe
+  //   await Recipe.save()
+  //   await Recipe.save()
+  //   return {Recipe, Recipe}
+  // }
+
+
+// @Put("/recipe/:id/ingredient/:ingredient_id")
+// async updateRecipe(
+//  @Param('id') id: number , 
+//  @Param('ingredient_id')  ingredient_id : number )
+//  {
+//     const ingredient = await Ingredient.findOne(ingredient_id)
+//     if (!ingredient) throw new NotFoundError('Cannot find ingredient')
+//     const recipe = await Recipe.findOne(id)
+//     if (!recipe) throw new NotFoundError('Cannot find recipe')
+
+//     //recipe.ingredients= [ingredient]
+//     recipe.ingredients.push(ingredient)
+//     return recipe.save()
+
+//  }
