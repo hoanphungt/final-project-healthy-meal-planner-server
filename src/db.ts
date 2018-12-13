@@ -9,6 +9,7 @@ import RecipeIngredient from './recipeIngredients/entity';
 import Ingredient from './ingredients/entity';
 import Unit from './units/entity';
 import Day from './days/entity';
+import Rating from './ratings/entity';
 
 class CustomNamingStrategy extends DefaultNamingStrategy implements NamingStrategyInterface {
 
@@ -41,7 +42,7 @@ export default () =>
       Ingredient,
       Unit,
       Day,
-      
+      Rating,
     ],
     synchronize: true,
     logging: true,

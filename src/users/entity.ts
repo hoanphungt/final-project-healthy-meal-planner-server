@@ -1,8 +1,9 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from 'typeorm'
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne, OneToMany } from 'typeorm'
 import { Exclude } from 'class-transformer';
 import { MinLength, IsString, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcrypt';
 import Planner from '../planners/entity';
+import Rating from '../ratings/entity';
 
 @Entity()
 export default class User extends BaseEntity {
@@ -47,9 +48,10 @@ export default class User extends BaseEntity {
   @Column('integer')
   childrensNumber: number
 
-
   @OneToOne(() => Planner, { eager: true })
   @JoinColumn()
   planner: Planner;
 
+  @OneToMany(() => Rating, rating => rating.user, {eager:true}) 
+  ratings: Rating[]
 }
