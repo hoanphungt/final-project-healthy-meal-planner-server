@@ -1,5 +1,6 @@
 import { JsonController, Post, Body, /* BodyParam, BadRequestError, Authorized*/ Get, Param, HttpCode, } from 'routing-controllers'
 import Recipe from './entity';
+import { randomRecipe } from '../logic';
 
 
 
@@ -26,6 +27,16 @@ export default class RecipeController {
       relations: ["ratings"]
     })
   }
+
+
+
+  @Get('/recipesList')
+  async getRecipeListe() {
+    const recipeListe = await Recipe.find()
+    const result = randomRecipe(recipeListe)
+    return result
+    }
+  
 
 
   @Post('/recipes')

@@ -1,29 +1,9 @@
 import { JsonController, Param, /* Post, Body, HttpCode,*/ BadRequestError, Authorized, Get, CurrentUser } from 'routing-controllers'
 import Planner from './entity';
 import User from '../users/entity';
-import Day from '../days/entity';
+//import Day from '../days/entity';
 
 
-async function createDay (planner, date, increment, user) {
-
-  const day = new Day
- // check if this planner already has a day with current Date
- const checkingDay = await Day.findOne(
-   {where :
-  { day :`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()+increment}` ,
-    planner : user.planner
-  }
-  })
-
-   if(!checkingDay) {
-    day.planner = planner
-    day.day = new Date()
-    day.day.setDate( date.getDate() + increment )
-     await day.save()
-   }
-
-  else { console.log('DAY ALREADY EXIST')}
-}
 
 
 
@@ -57,19 +37,13 @@ export default class PlannerController {
   async getPlannerAndDay(
     @CurrentUser() user: User
   ) {
-   const planner = await  Planner.findOne(user.planner)
+   const planner = await  Planner.findOne(user.planner, { relations : ["days"] })
 
    if(!planner) throw new BadRequestError(`Planner does not exist`)
   
-  const today= new Date()
-   for ( let i=0; i<7; i++) {
-  createDay ( planner,today, i,user)
-   }
-
-    const days = await Day.find()
-    await planner.save()
-    const planner2 =  await  Planner.findOne(user.planner, { relations : ["days"] }  )
-    return days && planner2
+ 
+    //await planner.save()
+    return  planner
 }
 
   // @Post('/planners')
