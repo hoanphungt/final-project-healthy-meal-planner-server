@@ -1,4 +1,4 @@
-import { JsonController,/* Post, Body, HttpCode,*/ BadRequestError, Authorized, Get, Param, CurrentUser } from 'routing-controllers'
+import { JsonController, Param, /* Post, Body, HttpCode,*/ BadRequestError, Authorized, Get, CurrentUser } from 'routing-controllers'
 import Planner from './entity';
 import User from '../users/entity';
 import Day from '../days/entity';
@@ -7,18 +7,18 @@ import Day from '../days/entity';
 async function createDay (planner, date, increment, user) {
 
   const day = new Day
- // check if this planner alraedy has a day with current Date
+ // check if this planner already has a day with current Date
  const checkingDay = await Day.findOne(
    {where :
-  { plannerDay :`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()+increment}` ,
+  { day :`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()+increment}` ,
     planner : user.planner
   }
   })
 
    if(!checkingDay) {
     day.planner = planner
-    day.plannerDay = new Date()
-    day.plannerDay.setDate( date.getDate() + increment )
+    day.day = new Date()
+    day.day.setDate( date.getDate() + increment )
      await day.save()
    }
 
@@ -30,34 +30,46 @@ async function createDay (planner, date, increment, user) {
 @JsonController()
 export default class PlannerController {
 
-  
-  @Get('/planners/:id([0-9]+)')
-  getPlanner(
-    @Param('id') id: number
-  ) {
-    return Planner.findOne(id)
-  }
+//  @Authorized()
+//  @Get('/myplanner')
+//   getMyPlanner(
+//     @CurrentUser() user: User
+//   ) {
+//     return Planner.findOne(user.planner)
+//   }
 
 
   @Get('/planners')
   getAllPlanners() {
     return Planner.find()
-  }    
+  }   
+  
+  
+  @Get('/planners/:id([0-9]+)')
+  getPlanner(
+    @Param('id') id: number
+  ) {
+    return Planner.findOne(id, { relations : ["days"] } )
+  }  
 
   @Authorized()
-  @Get('/users/planners')
+  @Get('/myplanner')
   async getPlannerAndDay(
     @CurrentUser() user: User
   ) {
    const planner = await  Planner.findOne(user.planner)
+
    if(!planner) throw new BadRequestError(`Planner does not exist`)
   
   const today= new Date()
-   for ( let i=1; i<8; i++) {
+   for ( let i=0; i<7; i++) {
   createDay ( planner,today, i,user)
    }
+
+    const days = await Day.find()
     await planner.save()
-    return {planner}
+    const planner2 =  await  Planner.findOne(user.planner, { relations : ["days"] }  )
+    return days && planner2
 }
 
   // @Post('/planners')
