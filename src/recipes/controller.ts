@@ -1,23 +1,30 @@
-import { JsonController, Post, Body, /* BodyParam, BadRequestError, Authorized*/ Get, Param, HttpCode } from 'routing-controllers'
+import { JsonController, Post, Body, /* BodyParam, BadRequestError, Authorized*/ Get, Param, HttpCode, } from 'routing-controllers'
 import Recipe from './entity';
-// import Recipe from '../recipes/entity';
+
 
 
 @JsonController()
 export default class RecipeController {
-
   
   @Get('/recipes/:id([0-9]+)')
-  getRecipe(
+  async getRecipe(
     @Param('id') id: number
   ) {
-    return Recipe.findOne(id)
+    const recipe = Recipe.findOne(
+      id, 
+      { 
+        relations: ["recipeIngredients", "recipeIngredients.ingredient", "recipeIngredients.unit", "ratings"]
+      })
+
+    return await recipe 
   }
 
 
   @Get('/recipes')
-  getAllRecipes() {
-    return Recipe.find()
+  async getAllRecipes() {
+    return await Recipe.find({ 
+      relations: ["ratings"]
+    })
   }
 
 

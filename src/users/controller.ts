@@ -34,6 +34,7 @@ export default class UserController {
 
     const planner = new Planner
       user.planner = planner
+      planner.name = "myplanner"
       await planner.save()
       await user.save()
       return {planner, user} 

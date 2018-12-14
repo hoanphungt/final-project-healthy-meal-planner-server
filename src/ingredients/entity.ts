@@ -12,7 +12,9 @@ export default class Ingredient extends BaseEntity {
   @Column('text')
   name: string
 
-  @OneToMany(() => RecipeIngredient, recipeIngredient => recipeIngredient.ingredient, {eager:true}) 
+  @OneToMany(() => RecipeIngredient, recipeIngredient => recipeIngredient.ingredient) 
   recipeIngredients: RecipeIngredient[]
 
 }
+
+//{eager:true}
