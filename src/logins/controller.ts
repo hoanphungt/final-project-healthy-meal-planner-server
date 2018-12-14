@@ -4,6 +4,7 @@ import { sign } from '../jwt'
 import User from '../users/entity'
 import {createDay} from '../logic'
 import Planner from '../planners/entity';
+import Recipe from '../recipes/entity';
 
 class AuthenticatePayload {
   @IsString()
@@ -32,8 +33,9 @@ export default class LoginController {
 
     if(!planner) throw new BadRequestError(`Planner does not exist`)
     const today= new Date()
+    const recipList = await Recipe.find()
     for ( let i=0; i<7; i++) {
-   createDay ( planner,today, i,user)}
+   createDay ( planner,today, i,user, recipList)}
  
     
 

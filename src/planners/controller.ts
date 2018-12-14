@@ -37,7 +37,7 @@ export default class PlannerController {
   async getPlannerAndDay(
     @CurrentUser() user: User
   ) {
-   const planner = await  Planner.findOne(user.planner, { relations : ["days"] })
+   const planner = await  Planner.findOne(user.planner, { relations : ["days" , "days.recipe"] })
 
    if(!planner) throw new BadRequestError(`Planner does not exist`)
   
