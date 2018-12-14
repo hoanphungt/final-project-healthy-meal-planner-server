@@ -1,4 +1,4 @@
-import { JsonController, Post, Body, BodyParam, BadRequestError, /*Authorized*/ Get, Param } from 'routing-controllers'
+import { JsonController, Post, Body, BodyParam, BadRequestError, /*Authorized*/ Get, Param, HttpCode } from 'routing-controllers'
 import User from './entity';
 import Planner from '../planners/entity';
 
@@ -21,6 +21,7 @@ export default class UserController {
   //   return user
   // }
   @Post('/users')
+  @HttpCode(201)
   async signup(
     @Body() newUserData: User,
     @BodyParam("confirmPassword") password_confirmation: string
