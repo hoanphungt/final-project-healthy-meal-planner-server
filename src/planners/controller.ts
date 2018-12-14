@@ -1,4 +1,4 @@
-import { JsonController,/* Post, Body, BadRequestError, HttpCode, Authorized*/ Get, Param,  } from 'routing-controllers'
+import { JsonController,/* Post, Body, BadRequestError, HttpCode,*/ Authorized, Get, CurrentUser,  } from 'routing-controllers'
 import Planner from './entity';
 import User from '../users/entity';
 
@@ -6,31 +6,16 @@ import User from '../users/entity';
 @JsonController()
 export default class PlannerController {
 
-//  @Authorized()
-//  @Get('/myplanner')
-@Get('/myplanner/:id([0-9]+)')
+ @Authorized()
+ @Get('/myplanner')
   getMyPlanner(
-    @Param("id") id: number
-    // @CurrentUser() user: User
+    @CurrentUser() user: User
   ) {
-    // return Planner.findOne(user.planner.id)
-    return Planner.findOne(id, { relations: ["days", "days.recipe"]})
+    return Planner.findOne(user.planner)
   }
 
 
   
-  // @Get('/planners/:id([0-9]+)')
-  // getUser(
-  //   @Param('id') id: number
-  // ) {
-  //   return Planner.findOne(id)
-  // }
-
-
-  // @Get('/planners')
-  // getAllPlanners() {
-  //   return Planner.find()
-  // }
 }
 
 

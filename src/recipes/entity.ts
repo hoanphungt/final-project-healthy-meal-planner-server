@@ -15,6 +15,15 @@ export default class Recipe extends BaseEntity {
   @Column('text')
   name: string
 
+  @Column('text',{ nullable: true })
+  image?: 'string'
+
+  @Column('integer', { nullable: true })
+  serves: number
+
+  @Column('integer')
+  cookingTime: number
+
   @IsString()
   @Column('text', { nullable: true })
   instructions: string

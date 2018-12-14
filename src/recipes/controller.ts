@@ -22,7 +22,9 @@ export default class RecipeController {
 
   @Get('/recipes')
   async getAllRecipes() {
-    return await Recipe.find()
+    return await Recipe.find({ 
+      relations: ["ratings"]
+    })
   }
 
 
