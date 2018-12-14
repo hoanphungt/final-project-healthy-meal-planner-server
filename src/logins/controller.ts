@@ -2,6 +2,9 @@ import { IsString } from 'class-validator'
 import { JsonController, Post, Body, BadRequestError } from 'routing-controllers'
 import { sign } from '../jwt'
 import User from '../users/entity'
+import {createDay} from '../logic'
+import Planner from '../planners/entity';
+import Recipe from '../recipes/entity';
 
 class AuthenticatePayload {
   @IsString()
@@ -24,6 +27,18 @@ export default class LoginController {
     if (!await user.checkPassword(password)) throw new BadRequestError('The password is not correct')
 
     const jwt = sign({ id: user.id })
+
+
+    const planner = await  Planner.findOne(user.planner)
+
+    if(!planner) throw new BadRequestError(`Planner does not exist`)
+    const today= new Date()
+    const recipList = await Recipe.find()
+    for ( let i=0; i<7; i++) {
+   createDay ( planner,today, i,user, recipList)}
+ 
+    
+
     return { jwt }
   }
 }
