@@ -45,10 +45,6 @@ export default class UserController {
 
 
 
-
-
-
-
   //   for admin implementation:
   // @Authorized()
   @Get('/users/:id([0-9]+)')

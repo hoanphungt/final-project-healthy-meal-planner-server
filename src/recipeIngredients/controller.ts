@@ -7,7 +7,7 @@ export default class RecipeIngredientController {
 
   
   @Get('/recipeingredients/:id([0-9]+)')
-  getUser(
+  getRecipeIngredients(
     @Param('id') id: number
   ) {
     return RecipeIngredient.findOne(id)
