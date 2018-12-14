@@ -28,6 +28,9 @@ export default class RecipeController {
   }
 
 
+  
+
+
   @Post('/recipes')
   @HttpCode(201)
   async createRecipe(
@@ -40,22 +43,6 @@ export default class RecipeController {
 }
 
 
-
-  // @Post('/Recipes/:RecipeId([0-9]+)/recipes')
-  // @HttpCode(201)
-  // async createRecipe(
-  //   @Body() recipe: Recipe,
-  //   @Param('RecipeId') RecipeId: number,
-  // ) {
-  //   const Recipe = await Recipe.findOne(RecipeId)
-  //   if(!Recipe) throw new BadRequestError(`Recipe does not exist`)
-
-  //   Recipe.recipe = Recipe
-  //   // Recipe = new Recipe
-  //   await Recipe.save()
-  //   await Recipe.save()
-  //   return {Recipe, Recipe}
-  // }
 
 
 // @Put("/recipe/:id/ingredient/:ingredient_id")
