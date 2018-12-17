@@ -2,9 +2,6 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 't
 import Recipe from '../recipes/entity';
 import User from '../users/entity';
 
-// import User from '../users/entity';
-// import { MinLength, IsString, IsEmail, IsNumber } from 'class-validator';
-
 @Entity()
 export default class Rating extends BaseEntity {
 
@@ -19,10 +16,4 @@ export default class Rating extends BaseEntity {
 
   @ManyToOne(() => User, user => user.ratings)
   user: User;
-
-
-  // @OneToOne(() => User)
-  // @JoinColumn()
-  // user: User;
-  
 }

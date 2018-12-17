@@ -2,24 +2,9 @@ import { JsonController, Post, Body, BodyParam, BadRequestError, /*Authorized*/ 
 import User from './entity';
 import Planner from '../planners/entity';
 
-
 @JsonController()
 export default class UserController {
 
-  // @Post('/users')
-  // async signup(
-  //   @Body() newUserData: User,
-  //   @BodyParam("confirmPassword") password_confirmation: string
-  // ) {
-  //   const { password, ...rest } = newUserData
-  //   if (password !== password_confirmation) throw new BadRequestError('Passwords do not match')
-  //   const entity = User.create(rest)
-  //   await entity.setPassword(password)
-
-  //   const user = await entity.save()
-
-  //   return user
-  // }
   @Post('/users')
   @HttpCode(201)
   async signup(
@@ -40,14 +25,8 @@ export default class UserController {
       await user.save()
       return {planner, user} 
   }
-
-
-
-
-
-
-
-  //   for admin implementation:
+   //for front-end retrieve the user's household number
+  // for future admin implementation and back-end testing:
   // @Authorized()
   @Get('/users/:id([0-9]+)')
   getUser(
@@ -56,16 +35,8 @@ export default class UserController {
     return User.findOne(id)
   }
 
-
   @Get('/users')
   getAllUsers() {
     return User.find()
   }
 }
-
-// @Get('/events/:eventId([0-9]+)/tickets/:ticketId([0-9]+)/comments/:commentId([0-9]+)')
-// async getComment(
-//   @Param('commentId') id: number
-// ) {
-//   return await MyComment.findOne(id, { relations: ["user", "ticket"] })
-// }
