@@ -6,14 +6,12 @@ import Recipe from '../recipes/entity';
 @JsonController()
 export default class DayController {
 
-  
   @Get('/days/:id([0-9]+)')
-  getUser(
+  getDay(
     @Param('id') id: number
   ) {
     return Day.findOne(id)
   }
-
 
   @Get('/days')
   getAllDays() {

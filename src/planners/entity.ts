@@ -1,7 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, OneToMany, Column } from 'typeorm'
 import Day from '../days/entity';
-// import User from '../users/entity';
-// import { MinLength, IsString, IsEmail, IsNumber } from 'class-validator';
 
 @Entity()
 export default class Planner extends BaseEntity {
@@ -12,12 +10,6 @@ export default class Planner extends BaseEntity {
   @Column('text', {nullable : true})
   name: string
 
-  @OneToMany(() => Day, day => day.planner) 
+  @OneToMany(() => Day, day => day.planner)
   days: Day[]
-
-
-  // @OneToOne(() => User)
-  // @JoinColumn()
-  // user: User;
-  
 }

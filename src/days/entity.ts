@@ -1,8 +1,6 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
 import Recipe from '../recipes/entity';
 import Planner from '../planners/entity';
-// import User from '../users/entity';
-// import { MinLength, IsString, IsEmail, IsNumber } from 'class-validator';
 
 @Entity()
 export default class Day extends BaseEntity {
@@ -10,7 +8,7 @@ export default class Day extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('date', {nullable: true})
+  @Column('date', { nullable: true })
   day: Date
 
   @ManyToOne(() => Recipe, recipe => recipe.days)
@@ -18,10 +16,4 @@ export default class Day extends BaseEntity {
 
   @ManyToOne(() => Planner, planner => planner.days)
   planner: Planner;
-
-
-  // @OneToOne(() => User)
-  // @JoinColumn()
-  // user: User;
-  
 }

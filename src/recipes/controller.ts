@@ -1,50 +1,35 @@
-import { JsonController, Post, Body, /* BodyParam, BadRequestError, Authorized*/ Get, Param, HttpCode, BadRequestError, } from 'routing-controllers'
+import { JsonController, Post, Body, Get, Param, HttpCode, BadRequestError} from 'routing-controllers'
 import Recipe from './entity';
 import RecipeIngredient from '../recipeIngredients/entity';
 import Ingredient from '../ingredients/entity';
 import Unit from '../units/entity';
 
 
-
-
 @JsonController()
 export default class RecipeController {
-  
+
+  //endpoint for front-end
   @Get('/recipes/:id([0-9]+)')
   async getRecipe(
     @Param('id') id: number
   ) {
-    const recipe = Recipe.findOne(
-      id, 
-      { 
+    const recipe = await Recipe.findOne(
+      id,
+      {
         relations: ["recipeIngredients", "recipeIngredients.ingredient", "recipeIngredients.unit", "ratings"]
       })
 
-    return await recipe 
+    return recipe
   }
-
-
+  //endpoint for front-end
   @Get('/recipes')
   async getAllRecipes() {
-    return await Recipe.find({ 
+    return await Recipe.find({
       relations: ["ratings"]
     })
   }
 
-
-  
-
-
-  // @Post('/recipes')
-  // @HttpCode(201)
-  // async createRecipe(
-  //   @Body() recipe: Recipe,
-  // ) {
-
-  //   await recipe.save()
-  //   return recipe
-  // }
-
+  //for back-end only
   @Post('/recipes')
   @HttpCode(201)
   async createRecipe(
@@ -99,32 +84,14 @@ export default class RecipeController {
     //   )
 
    
-    // const recipeIngredient = new RecipeIngredient
-    //   //  recipeIngredient.quantity = a
-    //     recipeIngredient.recipe = recipe
-    //     recipeIngredient.ingredient = ingredient
-    //     recipeIngredient.unit = unit
-    //     recipeIngredient.save()
+    const recipeIngredient = new RecipeIngredient
+      //  recipeIngredient.quantity = a
+        recipeIngredient.recipe = recipe
+        recipeIngredient.ingredient = ingredient
+        recipeIngredient.unit = unit
+        recipeIngredient.save()
 
     return  typeof(newRecipe.recipeIngredients)
   }
 }
 
-
-
-
-// @Put("/recipe/:id/ingredient/:ingredient_id")
-// async updateRecipe(
-//  @Param('id') id: number , 
-//  @Param('ingredient_id')  ingredient_id : number )
-//  {
-//     const ingredient = await Ingredient.findOne(ingredient_id)
-//     if (!ingredient) throw new NotFoundError('Cannot find ingredient')
-//     const recipe = await Recipe.findOne(id)
-//     if (!recipe) throw new NotFoundError('Cannot find recipe')
-
-//     //recipe.ingredients= [ingredient]
-//     recipe.ingredients.push(ingredient)
-//     return recipe.save()
-
-//  }
