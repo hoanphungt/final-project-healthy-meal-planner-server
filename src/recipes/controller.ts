@@ -38,7 +38,6 @@ export default class RecipeController {
       // recipe entity
       name, 
       image,
-      serves,
       cookingTime,
       instructions,
       diffLevel,
@@ -61,7 +60,6 @@ export default class RecipeController {
     const recipe = new Recipe
     recipe.name = newRecipe.name
     recipe.image = newRecipe.image
-    recipe.serves = newRecipe.serves
     recipe.instructions = newRecipe.instructions
     recipe.diffLevel = newRecipe.diffLevel
     recipe.season = newRecipe.season

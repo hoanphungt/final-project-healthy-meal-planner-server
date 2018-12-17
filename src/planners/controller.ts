@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { JsonController, Param, /* Post, Body, HttpCode,*/ BadRequestError, Authorized, Get, CurrentUser, QueryParam } from 'routing-controllers'
-=======
 import { JsonController, Param, BadRequestError, Authorized, Get, CurrentUser } from 'routing-controllers'
->>>>>>> c394c46d1c0e216dc807c93e9e437cdd1c291ed2
 import Planner from './entity';
 import User from '../users/entity';
 
@@ -23,7 +19,6 @@ export default class PlannerController {
     return Planner.findOne(id, { relations: ["days", "days.recipe"] })
   }
 
-<<<<<<< HEAD
 //   @Authorized()
 //   @Get('/myplanner')
 //   async getPlannerAndDay(
@@ -46,20 +41,6 @@ async getPlannerAndDay(
  if(!planner) throw new BadRequestError(`Planner does not exist`)
  return  planner
 }
-=======
-  //Endpoint for the front end side
-  @Authorized()
-  @Get('/myplanner')
-  async getPlannerAndDay(
-    @CurrentUser() user: User
-  ) {
-    const planner = await Planner.findOne(user.planner, { relations: ["days", "days.recipe"] })
-
-    if (!planner) throw new BadRequestError(`Planner does not exist`)
-
-    return planner
-  }
->>>>>>> c394c46d1c0e216dc807c93e9e437cdd1c291ed2
 }
 
 
