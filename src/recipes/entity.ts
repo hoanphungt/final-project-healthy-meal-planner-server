@@ -18,7 +18,7 @@ export default class Recipe extends BaseEntity {
   @Column('text',{ nullable: true })
   image?: 'string'
 
-  @Column('integer', { nullable: true })
+  @Column('integer',{nullable: true })
   serves: number
 
   @Column('integer', { nullable: true })

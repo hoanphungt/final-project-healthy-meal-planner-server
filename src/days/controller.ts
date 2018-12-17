@@ -11,7 +11,7 @@ export default class DayController {
   getUser(
     @Param('id') id: number
   ) {
-    return Day.findOne(id /*, { relations :["recipes"] }*/)
+    return Day.findOne(id)
   }
 
 
@@ -22,10 +22,10 @@ export default class DayController {
 
   @Authorized()
   @Patch('/days/:id([0-9]+)')
-  async changeRecipe(
+  async changeRecipeOftheDay(
     @CurrentUser() user: User,
     @Param('id') dayId: number,
-    @Body() recipeId,
+    @Body() recipeId : number,
   ) {
     const day = await Day.findOne(dayId,{where :{ planner : user.planner }
      })

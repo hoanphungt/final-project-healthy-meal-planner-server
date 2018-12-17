@@ -1,5 +1,9 @@
-import { JsonController, Post, Body, /* BodyParam, BadRequestError, Authorized*/ Get, Param, HttpCode, } from 'routing-controllers'
+import { JsonController, Post, Body, /* BodyParam, BadRequestError, Authorized*/ Get, Param, HttpCode, BadRequestError, } from 'routing-controllers'
 import Recipe from './entity';
+import RecipeIngredient from '../recipeIngredients/entity';
+import Ingredient from '../ingredients/entity';
+import Unit from '../units/entity';
+
 
 
 
@@ -31,14 +35,78 @@ export default class RecipeController {
   
 
 
+  // @Post('/recipes')
+  // @HttpCode(201)
+  // async createRecipe(
+  //   @Body() recipe: Recipe,
+  // ) {
+
+  //   await recipe.save()
+  //   return recipe
+  // }
+
   @Post('/recipes')
   @HttpCode(201)
   async createRecipe(
-    @Body() recipe: Recipe,
+    @Body() 
+    newRecipe :{ 
+      // recipe entity
+      name, 
+      image,
+      serves,
+      cookingTime,
+      instructions,
+      diffLevel,
+      season,
+      dietary, 
+      // ingredients ID
+     // ingredientName : [string] ,
+      ingredientName  ,
+
+      // units ID 
+      // unitName:[string],
+      unitName,
+
+      // recipesIngredient
+      recipeIngredients : [number]
+      // quantity,
+     },
   ) {
 
+    const recipe = new Recipe
+    recipe.name = newRecipe.name
+    recipe.image = newRecipe.image
+    recipe.serves = newRecipe.serves
+    recipe.instructions = newRecipe.instructions
+    recipe.diffLevel = newRecipe.diffLevel
+    recipe.season = newRecipe.season
+    recipe.dietary = newRecipe.dietary
+    
+    const ingredient = await Ingredient.findOne(newRecipe.ingredientName)
+    if(!ingredient) throw new BadRequestError
+    const unit = await Unit.findOne(newRecipe.unitName)
+    if(!unit) throw new BadRequestError
+
     await recipe.save()
-    return recipe
+    // newRecipe.recipeIngredients.forEach( 
+    //   a => console.log(a)
+    //   {
+    //     const recipeIngredient = new RecipeIngredient
+    //     recipeIngredient.quantity = a
+    //     recipeIngredient.recipe = recipe
+    //     recipeIngredient.save()
+    //   }
+    //   )
+
+   
+    // const recipeIngredient = new RecipeIngredient
+    //   //  recipeIngredient.quantity = a
+    //     recipeIngredient.recipe = recipe
+    //     recipeIngredient.ingredient = ingredient
+    //     recipeIngredient.unit = unit
+    //     recipeIngredient.save()
+
+    return  typeof(newRecipe.recipeIngredients)
   }
 }
 
