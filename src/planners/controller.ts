@@ -29,35 +29,15 @@ export default class PlannerController {
 //    if(!planner) throw new BadRequestError(`Planner does not exist`)
 //    return  planner
 // }
-@Authorized()
-@Get('/myplanner')
-async getPlannerAndDay(
-  // @QueryParam("limit") limit: number = 9,
-  // @QueryParam("offset") offset: number = 0,
-  @CurrentUser() user: User
-) {
- const planner = await  Planner.findOne(user.planner, { relations : ["days" , "days.recipe"] })
+// @Authorized()
+// @Get('/myplanner')
+// async getPlannerAndDay(
 
- if(!planner) throw new BadRequestError(`Planner does not exist`)
- return  planner
-}
-}
-
-
-
-// @Get('/events')
-// async events(
-//   @QueryParam("limit") limit: number = 9,
-//   @QueryParam("offset") offset: number = 0,
+//   @CurrentUser() user: User
 // ) {
-//   const q = Event.createQueryBuilder()
-//     .andWhere("end_date >= NOW()")
-//     .orderBy("start_date", "ASC")
-//     .limit(limit)
-//     .offset(offset)
+//  const planner = await  Planner.findOne(user.planner, { relations : ["days" , "days.recipe"] })
 
-//   const total = await q.getCount()
-//   const events = await q.getMany()
-
-//   return { events, total }
+//  if(!planner) throw new BadRequestError(`Planner does not exist`)
+//  return  planner
 // }
+}

@@ -34,7 +34,6 @@ export default class LoginController {
     for (let i = 0; i < 7; i++) {
       createDay(planner, today, i, user, recipList)
     }
-
     return { jwt }
   }
 }
