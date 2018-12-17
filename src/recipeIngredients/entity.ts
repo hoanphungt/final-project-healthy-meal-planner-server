@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column,  ManyToOne } from 'typeorm'
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
 import Recipe from '../recipes/entity';
 import Ingredient from '../ingredients/entity';
 import Unit from '../units/entity';
@@ -12,7 +12,6 @@ export default class RecipeIngredient extends BaseEntity {
   @Column('float8')
   quantity: number
 
-
   @ManyToOne(() => Recipe, recipe => recipe.recipeIngredients)
   recipe: Recipe;
 
@@ -22,5 +21,3 @@ export default class RecipeIngredient extends BaseEntity {
   @ManyToOne(() => Unit, unit => unit.recipeIngredients)
   unit: Unit;
 }
-
-// { eager: true }

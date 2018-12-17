@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
-import {IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 import RecipeIngredient from '../recipeIngredients/entity';
 
 @Entity()
@@ -12,9 +12,6 @@ export default class Unit extends BaseEntity {
   @Column('text')
   name: string
 
-  @OneToMany(() => RecipeIngredient, recipeIngredient => recipeIngredient.unit) 
+  @OneToMany(() => RecipeIngredient, recipeIngredient => recipeIngredient.unit)
   recipeIngredients: RecipeIngredient[]
-
 }
-
-//{eager:true}

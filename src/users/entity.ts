@@ -40,11 +40,9 @@ export default class User extends BaseEntity {
     return bcrypt.compare(rawPassword, this.password)
   }
 
-  // @IsNumber()
   @Column('integer')
   adultsNumber: number
 
-  // @IsNumber()
   @Column('integer')
   childrenNumber: number
 
