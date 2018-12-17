@@ -17,14 +17,9 @@ export default class Recipe extends BaseEntity {
   @Column('text', { nullable: true })
   image?: 'string'
 
-<<<<<<< HEAD
-  @Column('integer',{nullable: true })
-  serves: number
-=======
   //the serves are taken from the user table - household column
   // @Column('integer', { nullable: true })
   // serves: number
->>>>>>> c394c46d1c0e216dc807c93e9e437cdd1c291ed2
 
   @Column('integer', { nullable: true })
   cookingTime: number

@@ -1,4 +1,4 @@
-import { JsonController, Post, Body, BodyParam, BadRequestError, /*Authorized*/ Get, Param, HttpCode } from 'routing-controllers'
+import { JsonController, Post, Body, BodyParam, BadRequestError, /*Authorized*/ Get, Param, HttpCode, Authorized, CurrentUser } from 'routing-controllers'
 import User from './entity';
 import Planner from '../planners/entity';
 
@@ -39,4 +39,19 @@ export default class UserController {
   getAllUsers() {
     return User.find()
   }
+
+
+  @Get('/user')
+  @Authorized()
+  async getCurrentUser(
+  
+    @CurrentUser() user: User
+  ) {
+   const currentUser = await  User.findOne(user)
+  
+   if(!currentUser) throw new BadRequestError(`User does not exist`)
+   return  currentUser
+  }
+  
+  
 }
