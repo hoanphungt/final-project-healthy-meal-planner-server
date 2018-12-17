@@ -8,7 +8,7 @@ export default class RecipeIngredientController {
   getRecipeIngredients(
     @Param('id') id: number
   ) {
-    return RecipeIngredient.findOne(id)
+    return RecipeIngredient.findOne(id, { relations: ["recipe","ingredient","unit"]})
   }
 
   @Get('/recipeingredients')

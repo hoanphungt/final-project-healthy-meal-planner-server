@@ -1,4 +1,4 @@
-import { JsonController, Post, Body, Get, Param, HttpCode, BadRequestError} from 'routing-controllers'
+import { JsonController, Post, Body, Get, Param, HttpCode, BadRequestError } from 'routing-controllers'
 import Recipe from './entity';
 import RecipeIngredient from '../recipeIngredients/entity';
 import Ingredient from '../ingredients/entity';
@@ -33,28 +33,28 @@ export default class RecipeController {
   @Post('/recipes')
   @HttpCode(201)
   async createRecipe(
-    @Body() 
-    newRecipe :{ 
+    @Body()
+    newRecipe: {
       // recipe entity
-      name, 
+      name,
       image,
       cookingTime,
       instructions,
       diffLevel,
       season,
-      dietary, 
+      dietary,
       // ingredients ID
-     // ingredientName : [string] ,
-      ingredientName  ,
+      // ingredient : [string] ,
+      ingredient,
 
       // units ID 
-      // unitName:[string],
-      unitName,
+      // unit:[string],
+      unit,
 
       // recipesIngredient
-      recipeIngredients : [number]
-      // quantity,
-     },
+      //recipeIngredients : [number]
+      quantity,
+    },
   ) {
 
     const recipe = new Recipe
@@ -64,11 +64,11 @@ export default class RecipeController {
     recipe.diffLevel = newRecipe.diffLevel
     recipe.season = newRecipe.season
     recipe.dietary = newRecipe.dietary
-    
-    const ingredient = await Ingredient.findOne(newRecipe.ingredientName)
-    if(!ingredient) throw new BadRequestError
-    const unit = await Unit.findOne(newRecipe.unitName)
-    if(!unit) throw new BadRequestError
+
+    const ingredient = await Ingredient.findOne(newRecipe.ingredient)
+    if (!ingredient) throw new BadRequestError
+    const unit = await Unit.findOne(newRecipe.unit)
+    if (!unit) throw new BadRequestError
 
     await recipe.save()
     // newRecipe.recipeIngredients.forEach( 
@@ -81,15 +81,19 @@ export default class RecipeController {
     //   }
     //   )
 
-   
-    const recipeIngredient = new RecipeIngredient
-      //  recipeIngredient.quantity = a
-        recipeIngredient.recipe = recipe
-        recipeIngredient.ingredient = ingredient
-        recipeIngredient.unit = unit
-        recipeIngredient.save()
 
-    return  typeof(newRecipe.recipeIngredients)
+    const recipeIngredient = new RecipeIngredient
+    recipeIngredient.quantity = newRecipe.quantity
+    recipeIngredient.recipe = recipe
+    recipeIngredient.ingredient = ingredient
+    recipeIngredient.unit = unit
+    recipeIngredient.save()
+
+    return { recipe, recipeIngredient }
   }
 }
 
+
+
+
+//http :4000/recipes name=test32 image=Image cookingTime=32 instructions=DoThisThatAndThis diffLevel=easyPeasy season=winter dietary=carnivore ingredient=14 unit=5 quantity=500

@@ -1,4 +1,4 @@
-import { JsonController, Body,/* Post,  BadRequestError*/ NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam } from 'routing-controllers'
+import { JsonController, Body,/* Post,  BadRequestError*/ NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError } from 'routing-controllers'
 import Day from './entity';
 import User from '../users/entity';
 import Recipe from '../recipes/entity';
@@ -41,14 +41,39 @@ export default class DayController {
 
     @Get('/myplanner')
     @Authorized()
-    async getDaysP(
+    async getDays(
       @CurrentUser() user: User,
       @QueryParam("limit") limit: number = 7,
       @QueryParam("offset") offset: number = 0,
     ) {
 
+      const today = new Date
+
+      const dayToday = await Day.findOne(
+        {where :
+       {day :`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}` ,
+        planner : user.planner
+       }
+       })
+      
+       if (!dayToday) {throw new BadRequestError}
+
       const plannerUser = await Planner.findOne(user.planner)
-      const planner= await Day.find({ 
+      const orderedDay= await Day.find({ 
+        relations: ["recipe"],
+        where: { 
+            planner: plannerUser, 
+        },
+        order: {
+            day: "ASC",
+        },
+        cache: true
+    });
+ 
+       offset =orderedDay.findIndex(a=>a.day===dayToday.day)- today.getDay() +1 
+ // CANT CHANGE OFFSET NEED TO FIGURE SMTHG OUT 
+      
+       const planner= await Day.find({ 
         relations: ["recipe"],
         where: { 
             planner: plannerUser, 
@@ -60,7 +85,7 @@ export default class DayController {
         take: limit,
         cache: true
     });
-      return planner
-    }
-
+    
+       return planner
+  }
 }
