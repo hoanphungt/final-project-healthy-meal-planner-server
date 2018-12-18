@@ -10,7 +10,7 @@ function randomRecipe (recipList : Recipe[]) {
 
 export async function createDay (planner, date, increment, user,recipList) {
 
-  const day = new Day
+ const day = new Day
  // check if this planner already has a day with current Date
  const checkingDay = await Day.findOne(
    {where :

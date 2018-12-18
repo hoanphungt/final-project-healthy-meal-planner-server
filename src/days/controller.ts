@@ -52,8 +52,22 @@ export default class DayController {
     @QueryParam("limit") limit: number = 7,
     @QueryParam("offset") offset: number = 0,
   ) {
+
     const today = new Date
+
+    //if there is an offset value change "today"
+    if (offset)  {today.setDate( today.getDate() + offset  )}
     const plannerUser = await Planner.findOne(user.planner)
+
+
+    //create new days based on offset value
+    const recipList = await Recipe.find()
+    for (let i = 0; i < 7; i++) {
+      await createDay(plannerUser, today, i, user, recipList)
+    }
+
+
+
 
     const dayToday = await Day.findOne(
       {
@@ -67,6 +81,9 @@ export default class DayController {
     if (!dayToday) { throw new BadRequestError }
     
     
+
+// Create 7 days starting from today, only if there is no day with same date
+// Make a relation between the days and the planner of current user
 
     const orderedDay = await Day.find({
       relations: ["recipe"],
@@ -100,6 +117,7 @@ export default class DayController {
     });
     const total =orderedDay.length
 
-    return {planner,total}
+    return {planner,total, today}
   }
 }
+
