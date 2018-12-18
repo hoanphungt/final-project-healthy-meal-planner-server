@@ -44,16 +44,16 @@ export default class RecipeController {
       season,
       dietary,
       // ingredients ID
-      // ingredient : [string] ,
-      ingredient,
+       ingredient : [string] ,
+      //ingredient,
 
       // units ID 
-      // unit:[string],
-      unit,
+       unit:[string],
+      //unit,
 
       // recipesIngredient
-      //recipeIngredients : [number]
-      quantity,
+      recipeIngredients : [number]
+      //quantity,
     },
   ) {
 
@@ -64,32 +64,22 @@ export default class RecipeController {
     recipe.diffLevel = newRecipe.diffLevel
     recipe.season = newRecipe.season
     recipe.dietary = newRecipe.dietary
-
-    const ingredient = await Ingredient.findOne(newRecipe.ingredient)
-    if (!ingredient) throw new BadRequestError
-    const unit = await Unit.findOne(newRecipe.unit)
-    if (!unit) throw new BadRequestError
-
     await recipe.save()
-    // newRecipe.recipeIngredients.forEach( 
-    //   a => console.log(a)
-    //   {
-    //     const recipeIngredient = new RecipeIngredient
-    //     recipeIngredient.quantity = a
-    //     recipeIngredient.recipe = recipe
-    //     recipeIngredient.save()
-    //   }
-    //   )
 
+    for (let i = 0; i < newRecipe.recipeIngredients.length; i++) {
+      const ingredient = await Ingredient.findOne(newRecipe.ingredient[i])
+      if (!ingredient) throw new BadRequestError
+      const unit = await Unit.findOne(newRecipe.unit[i])
+      if (!unit) throw new BadRequestError
+      const recipeIngredient = new RecipeIngredient
+      recipeIngredient.quantity = newRecipe.recipeIngredients[i]
+      recipeIngredient.recipe = recipe
+      recipeIngredient.ingredient = ingredient
+      recipeIngredient.unit = unit
+      recipeIngredient.save()
+    }
 
-    const recipeIngredient = new RecipeIngredient
-    recipeIngredient.quantity = newRecipe.quantity
-    recipeIngredient.recipe = recipe
-    recipeIngredient.ingredient = ingredient
-    recipeIngredient.unit = unit
-    recipeIngredient.save()
-
-    return { recipe, recipeIngredient }
+    return { recipe }
   }
 }
 
