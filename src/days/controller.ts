@@ -65,10 +65,6 @@ export default class DayController {
     for (let i = 0; i < 7; i++) {
       await createDay(plannerUser, today, i, user, recipList)
     }
-
-
-
-
     const dayToday = await Day.findOne(
       {
         where:
@@ -104,7 +100,7 @@ export default class DayController {
     if (offset<0) { offset =0}
 
     const planner = await Day.find({
-      relations: ["recipe", "recipe.recipeIngredients"],
+      relations: ["recipe", "recipe.recipeIngredients", "recipe.recipeIngredients.ingredient", "recipe.recipeIngredients.unit"],
       where: {
         planner: plannerUser,
       },
