@@ -90,7 +90,8 @@ export default class DayController {
       take: limit,
       cache: true
     });
+    const total =orderedDay.length
 
-    return planner
+    return {planner,total}
   }
 }
