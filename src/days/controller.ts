@@ -65,10 +65,6 @@ export default class DayController {
     for (let i = 0; i < 7; i++) {
       await createDay(plannerUser, today, i, user, recipList)
     }
-
-
-
-
     const dayToday = await Day.findOne(
       {
         where:
