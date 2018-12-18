@@ -25,7 +25,7 @@ export default class UserController {
       await user.save()
       return {planner, user} 
   }
-   //for front-end retrieve the user's household number
+  
   // for future admin implementation and back-end testing:
   // @Authorized()
   @Get('/users/:id([0-9]+)')
@@ -40,7 +40,7 @@ export default class UserController {
     return User.find()
   }
 
-
+   //for front-end retrieve the user's household number
   @Get('/user')
   @Authorized()
   async getCurrentUser(
