@@ -29,7 +29,8 @@ export default class RecipeController {
     })
   }
 
-  //for back-end only
+  // To post a new recipe.
+  // Relationship with recipeIngredient, ingredient and unit implemented at the same time
   @Post('/recipes')
   @HttpCode(201)
   async createRecipe(
@@ -44,16 +45,13 @@ export default class RecipeController {
       season,
       dietary,
       // ingredients ID
-       ingredient : [string] ,
-      //ingredient,
+      ingredient: [string],
 
       // units ID 
-       unit:[string],
-      //unit,
+      unit: [string],
 
-      // recipesIngredient
-      recipeIngredients : [number]
-      //quantity,
+      // Quantity of recipesIngredient
+      recipeIngredients: [number]
     },
   ) {
 
