@@ -1,6 +1,5 @@
-import { JsonController, Param, BadRequestError, Authorized, Get, CurrentUser } from 'routing-controllers'
+import { JsonController, Param, Get, } from 'routing-controllers'
 import Planner from './entity';
-import User from '../users/entity';
 
 @JsonController()
 export default class PlannerController {
@@ -18,20 +17,4 @@ export default class PlannerController {
   ) {
     return Planner.findOne(id, { relations: ["days", "days.recipe"] })
   }
-
-  //Endpoint for the front end side
-  @Authorized()
-  @Get('/myplanner')
-  async getPlannerAndDay(
-    @CurrentUser() user: User
-  ) {
-    const planner = await Planner.findOne(user.planner, { relations: ["days", "days.recipe"] })
-
-    if (!planner) throw new BadRequestError(`Planner does not exist`)
-
-    return planner
-  }
 }
-
-
-

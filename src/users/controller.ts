@@ -52,5 +52,6 @@ export default class UserController {
    if(!currentUser) throw new BadRequestError(`User does not exist`)
    return  currentUser
   }
-
+  
+  
 }

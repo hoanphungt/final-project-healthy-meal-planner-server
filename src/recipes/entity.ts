@@ -21,7 +21,7 @@ export default class Recipe extends BaseEntity {
   // @Column('integer', { nullable: true })
   // serves: number
 
-  @Column('integer')
+  @Column('integer', { nullable: true })
   cookingTime: number
 
   @IsString()

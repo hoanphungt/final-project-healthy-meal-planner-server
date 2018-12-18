@@ -7,7 +7,7 @@ export default class Planner extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('text')
+  @Column('text', {nullable : true})
   name: string
 
   @OneToMany(() => Day, day => day.planner)
