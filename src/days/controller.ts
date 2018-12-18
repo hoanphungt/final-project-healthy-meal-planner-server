@@ -3,6 +3,7 @@ import Day from './entity';
 import User from '../users/entity';
 import Recipe from '../recipes/entity';
 import Planner from '../planners/entity';
+import { createDay } from '../logic';
 
 @JsonController()
 export default class DayController {
@@ -64,6 +65,8 @@ export default class DayController {
       })
 
     if (!dayToday) { throw new BadRequestError }
+    
+    
 
     const orderedDay = await Day.find({
       relations: ["recipe"],
@@ -76,10 +79,15 @@ export default class DayController {
       cache: true
     });
 
+   
+
     offset = offset || orderedDay.findIndex(a => a.day === dayToday.day) - today.getDay() + 1
+    
+    // TO PUSH TO PUSH // TO improve
+    if (offset<0) { offset =0}
 
     const planner = await Day.find({
-      relations: ["recipe"],
+      relations: ["recipe", "recipe.recipeIngredients"],
       where: {
         planner: plannerUser,
       },
