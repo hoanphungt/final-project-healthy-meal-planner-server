@@ -1,4 +1,4 @@
-import { JsonController, Body,/* Post,  BadRequestError*/ NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError } from 'routing-controllers'
+import { JsonController, Body, NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError} from 'routing-controllers'
 import Day from './entity';
 import User from '../users/entity';
 import Recipe from '../recipes/entity';
@@ -58,13 +58,12 @@ export default class DayController {
     //if there is an offset value change "today"
     if (offset)  {today.setDate( today.getDate() + offset  )}
     const plannerUser = await Planner.findOne(user.planner)
-
-
     //create new days based on offset value
     const recipList = await Recipe.find()
     for (let i = 0; i < 7; i++) {
       await createDay(plannerUser, today, i, user, recipList)
     }
+
     const dayToday = await Day.findOne(
       {
         where:
@@ -75,7 +74,6 @@ export default class DayController {
       })
 
     if (!dayToday) { throw new BadRequestError }
-    
     
 
 // Create 7 days starting from today, only if there is no day with same date
@@ -92,11 +90,10 @@ export default class DayController {
       cache: true
     });
 
-   
 
-    offset = offset || orderedDay.findIndex(a => a.day === dayToday.day) - today.getDay() + 1
+  orderedDay.findIndex(a => a.day === dayToday.day) - today.getDay() + 1
     
-    // TO PUSH TO PUSH // TO improve
+    // TO improve - avoid negative offset for first user
     if (offset<0) { offset =0}
 
     const planner = await Day.find({
@@ -115,5 +112,7 @@ export default class DayController {
 
     return {planner,total, today}
   }
+
+
 }
 

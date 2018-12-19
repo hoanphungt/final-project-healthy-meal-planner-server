@@ -4,13 +4,13 @@ import Planner from './entity';
 @JsonController()
 export default class PlannerController {
 
-  // Endpoint for testing only
+  // Endpoint for enormeing only
   @Get('/planners')
   getAllPlanners() {
     return Planner.find()
   }
 
-  // Endpoint for testing only
+  // Endpoint for enormeing only
   @Get('/planners/:id([0-9]+)')
   getPlanner(
     @Param('id') id: number
@@ -18,3 +18,6 @@ export default class PlannerController {
     return Planner.findOne(id,{ relations: ["days"] })
   }
 }
+
+
+  
