@@ -1,4 +1,4 @@
-import { JsonController, Body,/* Post,  BadRequestError*/ NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError, Delete } from 'routing-controllers'
+import { JsonController, Body, NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError} from 'routing-controllers'
 import Day from './entity';
 import User from '../users/entity';
 import Recipe from '../recipes/entity';
