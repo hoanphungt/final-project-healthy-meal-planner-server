@@ -1,7 +1,6 @@
 import { JsonController, Get, Param } from 'routing-controllers'
 import Ingredient from './entity';
 
-
 @JsonController()
 export default class IngredientController {
 
@@ -12,7 +11,7 @@ export default class IngredientController {
   ) {
     return Ingredient.findOne(id)
   }
-  
+
   // Endpoint for testing only
   @Get('/ingredients')
   getAllIngredients() {

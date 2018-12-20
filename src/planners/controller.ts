@@ -15,9 +15,8 @@ export default class PlannerController {
   getPlanner(
     @Param('id') id: number
   ) {
-    return Planner.findOne(id,{ relations: ["days"] })
+    return Planner.findOne(id, { relations: ["days"] })
   }
 }
 
 
-  

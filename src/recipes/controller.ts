@@ -4,7 +4,6 @@ import RecipeIngredient from '../recipeIngredients/entity';
 import Ingredient from '../ingredients/entity';
 import Unit from '../units/entity';
 
-
 @JsonController()
 export default class RecipeController {
 
@@ -81,7 +80,3 @@ export default class RecipeController {
   }
 }
 
-
-
-
-//http :4000/recipes name=test32 image=Image cookingTime=32 instructions=DoThisThatAndThis diffLevel=easyPeasy season=winter dietary=carnivore ingredient=14 unit=5 quantity=500
