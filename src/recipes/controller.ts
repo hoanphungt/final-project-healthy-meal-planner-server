@@ -61,6 +61,8 @@ export default class RecipeController {
     recipe.diffLevel = newRecipe.diffLevel
     recipe.season = newRecipe.season
     recipe.dietary = newRecipe.dietary
+    recipe.cookingTime = newRecipe.cookingTime
+
     await recipe.save()
 
     for (let i = 0; i < newRecipe.recipeIngredients.length; i++) {
