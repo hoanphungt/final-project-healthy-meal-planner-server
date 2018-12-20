@@ -1,4 +1,4 @@
-import { JsonController, Post, Body, BodyParam, BadRequestError, /*Authorized*/ Get, Param, HttpCode, Authorized, CurrentUser } from 'routing-controllers'
+import { JsonController, Post, Body, BodyParam, BadRequestError, Get, Param, HttpCode, Authorized, CurrentUser } from 'routing-controllers'
 import User from './entity';
 import Planner from '../planners/entity';
 
@@ -52,6 +52,4 @@ export default class UserController {
    if(!currentUser) throw new BadRequestError(`User does not exist`)
    return  currentUser
   }
-  
-  
 }

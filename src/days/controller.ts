@@ -1,4 +1,4 @@
-import { JsonController, NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError} from 'routing-controllers'
+import { JsonController, NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError } from 'routing-controllers'
 import Day from './entity';
 import User from '../users/entity';
 import Recipe from '../recipes/entity';
@@ -13,17 +13,16 @@ export default class DayController {
   getDay(
     @Param('id') id: number
   ) {
-    return Day.findOne(id, {relations : ["recipe"]})
-
+    return Day.findOne(id, { relations: ["recipe"] })
   }
-  
+
   // Endpoint for testing only
   @Get('/days')
   getAllDays() {
     return Day.find()
   }
+
   // Change the recipe asociated with a day 
-  // Body should be the recipe id, Param the day id
   @Authorized()
   @Patch('/days/:id([0-9]+)/recipes/:recipeId([0-9]+)')
   async changeRecipeOftheDay(
@@ -53,11 +52,10 @@ export default class DayController {
     @QueryParam("limit") limit: number = 7,
     @QueryParam("offset") offset: number = 0,
   ) {
-
     const today = new Date
 
     //if there is an offset value change "today"
-    if (offset)  {today.setDate( today.getDate() + offset  )}
+    if (offset) { today.setDate(today.getDate() + offset) }
     const plannerUser = await Planner.findOne(user.planner)
     //create new days based on offset value
     const recipList = await Recipe.find()
@@ -75,10 +73,9 @@ export default class DayController {
       })
 
     if (!dayToday) { throw new BadRequestError }
-    
 
-// Create 7 days starting from today, only if there is no day with same date
-// Make a relation between the days and the planner of current user
+    // Create 7 days starting from today, only if there is no day with same date
+    // Make a relation between the days and the planner of current user
 
     const orderedDay = await Day.find({
       relations: ["recipe"],
@@ -91,11 +88,9 @@ export default class DayController {
       cache: true
     });
 
+    orderedDay.findIndex(a => a.day === dayToday.day) - today.getDay() + 1
 
-  orderedDay.findIndex(a => a.day === dayToday.day) - today.getDay() + 1
-    
-    // TO improve - avoid negative offset for first user
-    if (offset<0) { offset =0}
+    if (offset < 0) { offset = 0 }
 
     const planner = await Day.find({
       relations: ["recipe", "recipe.recipeIngredients", "recipe.recipeIngredients.ingredient", "recipe.recipeIngredients.unit"],
@@ -109,11 +104,9 @@ export default class DayController {
       take: limit,
       cache: true
     });
-    const total =orderedDay.length
+    const total = orderedDay.length
 
-    return {planner,total, today}
+    return { planner, total }
   }
-
-
 }
 

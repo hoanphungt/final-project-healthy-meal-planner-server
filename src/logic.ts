@@ -1,12 +1,10 @@
 import Day from "./days/entity";
 import  Recipe from "./recipes/entity";
 
-
 function randomRecipe (recipList : Recipe[]) {
   const randomRecipe = recipList[Math.floor(Math.random()*recipList.length)]
   return randomRecipe
 }
-
 
 export async function createDay (planner, today, increment, user,recipList) {
 const date = new Date(today)
