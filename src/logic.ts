@@ -2,7 +2,10 @@ import Day from "./days/entity";
 import  Recipe from "./recipes/entity";
 
 function randomRecipe (recipList : Recipe[]) {
-  const randomRecipe = recipList[Math.floor(Math.random()*recipList.length)]
+  const index = Math.floor(Math.random()*recipList.length)
+  const randomRecipe = recipList[index]
+  recipList.splice(index, 1);
+  console.log(recipList)
   return randomRecipe
 }
 
@@ -27,6 +30,7 @@ const day = new Day
     day.day.setFullYear(date.getFullYear())
 
     day.recipe =  randomRecipe(recipList)
+
     await day.save()
    }
   else { console.log('DAY ALREADY EXIST')}
