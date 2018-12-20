@@ -1,4 +1,4 @@
-import { JsonController, Body, NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError} from 'routing-controllers'
+import { JsonController, NotFoundError, Patch, Get, Param, Authorized, CurrentUser, QueryParam, BadRequestError} from 'routing-controllers'
 import Day from './entity';
 import User from '../users/entity';
 import Recipe from '../recipes/entity';
@@ -13,7 +13,8 @@ export default class DayController {
   getDay(
     @Param('id') id: number
   ) {
-    return Day.findOne(id)
+    return Day.findOne(id, {relations : ["recipe"]})
+
   }
   
   // Endpoint for testing only
@@ -24,11 +25,11 @@ export default class DayController {
   // Change the recipe asociated with a day 
   // Body should be the recipe id, Param the day id
   @Authorized()
-  @Patch('/days/:id([0-9]+)')
+  @Patch('/days/:id([0-9]+)/recipes/:recipeId([0-9]+)')
   async changeRecipeOftheDay(
     @CurrentUser() user: User,
     @Param('id') dayId: number,
-    @Body() recipeId: number,
+    @Param('recipeId') recipeId: number,
   ) {
     const day = await Day.findOne(dayId, {
       where: { planner: user.planner }
