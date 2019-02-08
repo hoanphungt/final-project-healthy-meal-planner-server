@@ -14,10 +14,11 @@ The idea of the app is to generate for users one recipe per day randomly from th
 - generating a shopping list that included all the necessary ingredients in the right quantity (calculated for the number of household members)
 
 ## Tech stack
-JavaScript
-React
-Redux
-CSS
+* TypeScript
+* Koa
+* Routing-controllers
+* TypeORM
+* PostgreSQL
 
 ## Demo
 [Working MVP Demo](https://loized.com/img/meal/video_meal.gif)
@@ -31,7 +32,11 @@ CSS
 
 ## Authors and acknowledgment
 [Hoan Phung](https://www.linkedin.com/in/hoanphung) - Junior Full-Stack Developer (me)
+
 [Sabina Dhaugoda - Junior Full-Stack Developer](https://www.linkedin.com/in/sabinadhaugoda)
+
 [Alina Rusu - Junior Full-Stack Developer](https://github.com/alex-alina)
+
 [David Behal - Junior Full-Stack Developer](https://github.com/DavidB59)
+
 [Loize Dalco - UX/ UI Designer](https://loized.com/)
