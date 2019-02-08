@@ -41,3 +41,5 @@ The idea of the app is to generate for users one recipe per day randomly from th
 [David Behal - Junior Full-Stack Developer](https://github.com/DavidB59)
 
 [Loize Dalco - UX/ UI Designer](https://loized.com/)
+
+[Phung Le Hoang Nam](https://hoan-phung.netlify.com/)
