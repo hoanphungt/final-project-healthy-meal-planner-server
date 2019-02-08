@@ -9,9 +9,9 @@ The goal is to develop the basic features for a meal planner that helps people p
 The idea of the app is to generate for users one recipe per day randomly from the database, the ability to change the recipe associated to a day and to print a shopping list based on all the recipes selected for the week.
 
 ### Some features of the apps:
-- creating user accounts
-- generating a list of recipes
-- generating a shopping list that included all the necessary ingredients in the right quantity (calculated for the number of household members)
+- Creating user accounts
+- Generating a list of recipes
+- Generating a shopping list that included all the necessary ingredients in the right quantity (calculated for the number of household members)
 
 ## Tech stack
 * TypeScript
